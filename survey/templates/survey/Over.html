@@ -1,0 +1,13 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    结束
+{% endblock %}
+
+{% block content %}
+    <h2>感谢参与</h2>
+    <h3>请勿关闭窗口</h3>
+    <h4>我们会按照页面上的信息支付您的收益。</h4>
+    <h4>此次实验您的基本出场费加实验所得总共为：<small>（单位：元）</small><strong>{{ player.participant.vars.all_in_all }}</strong></h4>
+{% endblock %}

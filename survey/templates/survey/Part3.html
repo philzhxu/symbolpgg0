@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    问卷调查
+{% endblock %}
+
+{% block content %}
+    <h5>您是不是党员？</h5>
+    {% formfield player.is_party_member %}
+    <h5>您有没有加入学生会？</h5>
+    {% formfield player.is_student_union_member %}
+    <h5>您是不是学生或者您班级里的干部？</h5>
+    {% formfield player.is_cadre %}
+    <h5>您有没有在校内或校外做过兼职？</h5>
+    {% formfield player.is_hourly_workers %}
+    <h5>你有没有得过奖学金？</h5>
+    {% formfield player.is_scholarship_member %}
+    <h5>您每月的生活开支多少？</h5>
+    {% formfield player.own_expenses_level %}
+    <h5>请问您来自农村还是城市？</h5>
+    {% formfield player.is_from_village %}
+    <h5>您的民族是？</h5>
+    {% formfield player.is_minority_nationalities %}
+    <h5>您的家庭上一年的年收入是多少？</h5>
+    {% formfield player.family_annual_income_level %}
+
+    {% next_button %}
+{% endblock %}

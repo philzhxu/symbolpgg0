@@ -1,0 +1,17 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    问卷调查
+{% endblock %}
+
+{% block content %}
+    <h5>请输入你的性别：</h5>
+    {% formfield player.is_male %}
+    <h5>请问您的专业是经济或管理类吗？</h5>
+    {% formfield player.is_economics_or_management %}
+    <h5>请输入您的年级：</h5>
+    {% formfield player.grade_level %}
+
+    {% next_button %}
+{% endblock %}

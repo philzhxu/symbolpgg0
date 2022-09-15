@@ -1,0 +1,20 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    问卷调查
+{% endblock %}
+
+{% block content %}
+    <h5>请问您能完全理解实验流程吗？</h5>
+    {% formfield player.process_understand_level %}
+    <h5>您对所得的收益满意吗？</h5>
+    {% formfield player.income_satisfaction_level %}
+    <h5>您满意管理者做出的决策吗？（如果您是管理者请略过）</h5>
+    {% formfield player.manager_decision_satisfaction_level %}
+    <h5>您对第二阶段的规划满意吗？</h5>
+    {% formfield player.second_stage_rule_satisfaction_level %}
+    <h5>您以后还愿意参加这样的实验吗？</h5>
+    {% formfield player.willing_participate_level %}
+    {% next_button %}
+{% endblock %}

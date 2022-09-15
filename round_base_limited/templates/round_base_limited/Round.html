@@ -1,0 +1,29 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    请做出决策
+{% endblock %}
+
+{% block content %}
+    <div class="card bg-light m-3">
+        <div class="card-body">
+        <h4>现在是<strong>20</strong> 轮中的第 <strong>{{ player.round_number }}</strong> 轮</h4>
+        <hr>
+        {% if group.A_id == player.id_in_group %}
+        <h4>您被选为角色A</h4>
+        <br>
+        <h5>等到全部角色B做出决策后，您可以观察到所有角色B各自是否将20个积分存入公共账户。</h5>
+    {% else %}
+        <h4>您被选为角色B,且您的ID为{{ player.id_in_round }}</h4>
+        <br>
+        <h5>您将会得到20个积分，您可以选择要么把20个积分都留在私人账户，要么将所有积分都存入本组的公共账户，请选择:</h5>
+        <br>
+        {% formfield player.is_selfish %}
+        <br>
+    {% endif %}
+        </div>
+    </div>
+    {% next_button %}
+    {% include Constants.Rule_base %}
+{% endblock %}

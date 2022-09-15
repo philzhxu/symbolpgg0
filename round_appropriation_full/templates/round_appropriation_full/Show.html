@@ -1,0 +1,85 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    请做出决策
+{% endblock %}
+
+{% block content %}
+    <div class="card bg-light m-3">
+        <div class="card-body">
+        <h4>现在是<strong>20</strong> 轮中的第 <strong>{{ player.round_number }}</strong> 轮</h4>
+        <br>
+        {% if player.id_in_group == group.A_id %}
+            <h4>您是角色A</h4>
+        {% else %}
+            <h4>您被选为角色B,且您的ID为{{ player.id_in_round }}</h4>
+        {% endif %}
+            <hr>
+
+
+        {% if group.A_continue == 0 %}
+            <h4 style="color: red">该回合没有人被针对。</h4>
+
+        {% else %}
+            {% if player.id_in_round == group.A_continue  %}
+                <h5>该回合您被针对</h5>
+                <h5>下表为其他角色B对您的决策支持和反对的人数：</h5>
+            {% else %}
+                <h5>该回合ID为{{ group.A_continue }}的角色B被针对</h5>
+                <h5>下表为其他角色B对角色A的决策支持和反对的人数：</h5>
+            {% endif %}
+
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">支持</th>
+                  <th scope="col">反对</th>
+                  <th scope="col">什么也不做</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                    {% for i in group.get_favor_tuple %}
+                        <td>{{ i }}</td>
+                    {% endfor %}
+                </tr>
+              </tbody>
+            </table>
+            {% if player.id_in_round == group.A_continue  %}
+                <h4 style="color: red">最终，您{{ group.get_deduction_result }}被扣除30积分</h4>
+            {% else %}
+                <h4 style="color: red">最终，他/她{{ group.get_deduction_result }}被扣除30积分</h4>
+            {% endif %}
+
+        {% endif %}
+        <br>
+        <h5>如下为所有成员做出的决策以及最终积分</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">存入账户</th>
+              <th scope="col">所得积分</th>
+            </tr>
+          </thead>
+          <tbody>
+                {% for Mplayer in group.get_sorted_id_in_round_contain_A %}
+                    <tr>
+                        {% if Mplayer.0 == player.id_in_round or group.A_id == player.id_in_group and Mplayer.0 == '角色A'%}
+                            <td>{{ Mplayer.0 }}（自己）</td>
+                        {% else %}
+                            <td>{{ Mplayer.0 }}</td>
+                        {% endif %}
+                        <td>{{ Mplayer.1 }}</td>
+                        <td>{{ Mplayer.2 }}</td>
+                    </tr>
+                {% endfor %}
+          </tbody>
+        </table>
+
+        </div>
+    </div>
+    {% next_button %}
+    {% include Constants.Rule_base %}
+{% endblock %}

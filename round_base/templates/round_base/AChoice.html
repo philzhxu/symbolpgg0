@@ -1,0 +1,42 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    请做出决策
+{% endblock %}
+
+{% block content %}
+    <div class="card bg-light m-3">
+        <div class="card-body">
+        <h4>现在是<strong>20</strong> 轮中的第 <strong>{{ player.round_number }}</strong> 轮</h4>
+        <hr>
+        <h4>您是角色A</h4>
+        <h5>如下为四位角色B的成员做出的决策</h5>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">存入</th>
+                </tr>
+              </thead>
+              <tbody>
+                    {% for Mplayer in group.get_sorted_id_in_round %}
+                        <tr>
+                            <td>{{ Mplayer.0 }}</td>
+                            <td>{{ Mplayer.1 }}</td>
+                        </tr>
+                    {% endfor %}
+              </tbody>
+            </table>
+
+        <h5>请您决定是否选择其中一位作为针对性的目标。如果您不愿选择任何一位，则本轮实验到此结束。如果您选择了一位参与者，那么您将付出2个积分的代价，并将本轮实验推进至下一步，请选择:</h5>
+        {% formfield group.A_continue %}
+        </div>
+    </div>
+    {% next_button %}
+    {% if player.round_number == 1 %}
+        {% include Constants.Rule_base %}
+    {% endif %}
+{% endblock %}
+
+
